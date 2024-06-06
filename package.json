@@ -3,7 +3,9 @@
   "version": "0.0.0",
   "license": "Apache 2.0",
   "private": true,
-  "homepage": "https://github.com/Cc-Edit/CcClip",
+  "homepage": "https://github.com/x007xyz/fly-cut.git",
+  "description": "About A web-based video editing tool implemented with WebCodecs, similar to CapCut Web.使用webcodecs实现的Web端视频编辑工具，类似剪映Web版。",
+  "keywords": ["WebCodecs", "video-editor", "video-processing", "video-cut", "video-clip"],
   "scripts": {
     "dev": "vite",
     "dev-ssl": "vite",
