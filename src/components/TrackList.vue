@@ -90,7 +90,7 @@
   const trackScale = computed(() => store.trackScale);
   const trackStyle = computed(() => {
     return {
-      width: getGridPixel(trackScale.value, playerStore.frameCount) + offsetLine.right
+      width: getGridPixel(trackScale.value, store.frameCount) + offsetLine.right
     };
   });
   const defaultFps = ref(30); // 帧率
@@ -129,7 +129,7 @@
   }
   function handlerSelectFrame(frame: number) {
     const playFrame = frame - 1;
-    const startFrane = playFrame < 0 ? 0 : playFrame > playerStore.frameCount ? playerStore.frameCount : playFrame;
+    const startFrane = playFrame < 0 ? 0 : playFrame > store.frameCount ? store.frameCount : playFrame;
     playerStore.isPause = true;
     playerStore.playStartFrame = startFrane;
   }
