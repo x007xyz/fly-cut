@@ -9,7 +9,6 @@ import 'element-plus/es/components/message/style/css';
 
 import installIcon from '@/plugins/installIcon'; // icon 注册
 import { router } from '@/plugins/installRouter'; // 路由注册
-import installPiniaPlugin from '@/plugins/installPiniaPlugin'; // Pinia 状态监控
 
 const app = createApp(App);
 // app.config.globalProperties.$showLoading = ref(false);
@@ -18,7 +17,6 @@ const app = createApp(App);
 // });
 
 const pinia = createPinia();
-pinia.use(installPiniaPlugin);
 
 app.use(pinia);
 app.use(router);

@@ -9,7 +9,7 @@ class="top-0 left-0 bottom-0" direction="vertical" :limitSize="limitSize" disabl
       <span class="text-sm">点击轨道进行编辑</span>
     </div>
     <div class="absolute top-0 left-3 right-2 bottom-0 overflow-hidden">
-      <!-- <AttrContainer :attrData="selectTrackOptionsConfig" :trackId="trackStore.selectResource?.id" /> -->
+      <AttrContainer :attrData="selectTrackOptionsConfig" :trackId="trackStore.selectResource?.id" />
     </div>
   </div>
 </template>

@@ -23,12 +23,6 @@
 
 <script setup lang="ts">
   import { computed, ref, watch } from 'vue';
-  import { getData } from '@/api/mock';
-  import { useRequest } from 'vue-hooks-plus';
-  import ImagePanel from './ImagePanel/index.vue';
-  // import VideoPanel from './VideoPanel/index.vue';
-  // import AudioPanel from './AudioPanel/index.vue';
-  // import TextPanel from './TextPanel/index.vue';
   const props = defineProps({
     activeKey: {
       type: String,
@@ -47,10 +41,6 @@
     collapseChange(newCollapse: boolean) {
       return newCollapse !== null;
     }
-  });
-  const { data: listData, refresh } = useRequest(() => getData(props.activeKey));
-  watch(() => props.activeKey, () => {
-    refresh();
   });
 
   const title = computed(() => props.title);

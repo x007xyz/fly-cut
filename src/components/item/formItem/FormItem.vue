@@ -131,7 +131,7 @@
   const formValue = computed({
     get() {
       if (selectResource.value) {
-        return get(trackList.value[selectTrackItem.value.line].list[selectTrackItem.value.index], props.componentData.mappingKey);
+        return get(toRaw(trackList.value[selectTrackItem.value.line].list[selectTrackItem.value.index]), props.componentData.mappingKey);
       } else {
         return null;
       }

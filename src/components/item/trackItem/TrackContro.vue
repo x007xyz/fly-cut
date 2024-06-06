@@ -55,8 +55,6 @@
   const store = usePageState();
   const trackStore = useTrackState();
   const playerStore = usePlayerState();
-  const statePoint = computed(() => store._stepInfo.statePoint);
-  const stateLength = computed(() => store._stepInfo.stateLength);
   const svgStyle = ref({
     fontSize: '1.75rem',
     padding: '0.25rem',
@@ -78,12 +76,12 @@
   const icons = computed(() => [
     {
       title: '撤销',
-      disable: stateLength.value === 0 || statePoint.value === 0,
+      disable: true,
       icon: 'UndoIcon'
     },
     {
       title: '前进',
-      disable: statePoint.value === stateLength.value,
+      disable: true,
       icon: 'RedoIcon'
     },
     {
@@ -110,9 +108,9 @@
         trackStore.selectTrackItem.index = -1;
       }
     } else if (type === 'UndoIcon') {
-      store._undo();
+      // store._undo();
     } else if (type === 'RedoIcon') {
-      store._redo();
+      // store._redo();
     } else if (type === 'SplitIcon') {
       // 判断分割时间是否在视频内
       let splitTime = playerStore.playStartFrame;

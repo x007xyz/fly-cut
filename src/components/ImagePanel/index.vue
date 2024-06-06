@@ -14,7 +14,7 @@
   import { imageDecoder } from '@/utils/webcodecs';
   import { selectFile } from '@/utils/file';
   import { getMD5 } from '@/class/Base';
-  import { write } from 'opfs-tools';
+  // import { write } from 'opfs-tools';
   import type { ImageSource } from '@/class/ImageTrack';
   import { ImageTrack } from '@/class/ImageTrack';
 
@@ -49,7 +49,7 @@
 
     // 将文件写入到文件系统
     // 写入原文件，还是写入解码后的文件？
-    write(id, files[0].stream());
+    // write(id, files[0].stream());
 
     const imageTrack = new ImageTrack(imageSource, playStore.playStartFrame);
 
