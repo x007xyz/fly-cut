@@ -48,7 +48,7 @@ class="playPoint block border-1 border-gray-600 bg-gray-600 h-3 w-2.5 dark:borde
       const frame = getSelectFrame(event.pageX - offsetLine.left - rect.left, trackStore.trackScale, 30);
 
       const playFrame = frame - 1;
-      const startFrame = playFrame < 0 ? 0 : playFrame > playerStore.frameCount ? playerStore.frameCount : playFrame;
+      const startFrame = playFrame < 0 ? 0 : playFrame > trackStore.frameCount ? trackStore.frameCount : playFrame;
       playerStore.playStartFrame = startFrame;
     }
   }

@@ -31,7 +31,7 @@
     return formatPlayerTime(store.playStartFrame);
   });
   const allTime = computed(() => {
-    return formatPlayerTime(store.frameCount);
+    return formatPlayerTime(trackStore.frameCount);
   });
   let playTimer = ref();
   const timeStamp = 1000 / 30;
@@ -48,14 +48,14 @@
   };
   function startPlay() {
     if (props.disable) return;
-    if (store.playStartFrame >= store.frameCount) {
+    if (store.playStartFrame >= trackStore.frameCount) {
       store.playStartFrame = 0;
     }
     store.isPause = false;
     playTimer.value?.cancel();
     playTimer.value = preciseInterval(() => {
       store.playStartFrame++;
-      if (store.playStartFrame === store.frameCount) {
+      if (store.playStartFrame === trackStore.frameCount) {
         pauseVideo();
       }
     }, timeStamp);

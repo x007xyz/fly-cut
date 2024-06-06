@@ -142,6 +142,12 @@ export const useTrackState = defineStore('trackState', () => {
     }
   }
 
+  const frameCount = computed(() => {
+    return trackList.reduce((res, { list }) => {
+      return Math.max(list.reduce((max, track) => Math.max(max, track.end), 0), res);
+    }, 0);
+  });
+
   // watchEffect(() => {
   //   localStorage.trackS = trackScale.value;
   // });
@@ -157,6 +163,7 @@ export const useTrackState = defineStore('trackState', () => {
     addTrack,
     selectTrackById,
     removeTrack,
+    frameCount,
     dragData
   };
 });
