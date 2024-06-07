@@ -13,6 +13,7 @@
 -->
         <i class="iconfont icon-shuangjiantou_zuo_line" @click="switchCollapse" />
       </div>
+      <LocalPanel v-if="activeKey === 'local'" />
       <ImagePanel v-if="activeKey === 'image'" />
       <VideoPanel v-if="activeKey === 'video'" />
       <AudioPanel v-if="activeKey === 'audio'" />

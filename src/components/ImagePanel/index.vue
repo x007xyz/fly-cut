@@ -14,7 +14,6 @@
   import { imageDecoder } from '@/utils/webcodecs';
   import { selectFile } from '@/utils/file';
   import { getMD5 } from '@/class/Base';
-  // import { write } from 'opfs-tools';
   import type { ImageSource } from '@/class/ImageTrack';
   import { ImageTrack } from '@/class/ImageTrack';
 

@@ -3,6 +3,32 @@
 import type { VideoSource } from "@/class/VideoTrack";
 import { baseFps } from "@/data/trackConfig";
 import { Combinator, MP4Clip, OffscreenSprite, decodeImg, AudioClip } from "@webav/av-cliper";
+import { file, write } from "opfs-tools";
+
+async function writeFile(id: string, stream?: ReadableStream<Uint8Array>) {
+  if (!stream) {
+    // 没有数据流，尝试从opfs中获取
+    stream = await file(id).stream();
+
+    if (!stream) {
+      throw new Error("stream is not ready");
+    }
+  }
+
+  const start = performance.now()
+
+  // 如果opfs中没有数据则存储
+  if (!(await file(id).exists())) {
+    await write(id, stream);
+    console.log('opfs存储文件耗时', performance.now() - start, 'ms');
+
+    stream = await file(id).stream();
+
+    console.log('opfs读取文件耗时', performance.now() - start, 'ms');
+  }
+
+  return stream;
+}
 
 class VideoDecoder {
   #decoderMap = new Map<string, MP4Clip>();
@@ -32,9 +58,9 @@ class VideoDecoder {
     if (this.#decoderMap.has(id)) {
       return this.#decoderMap.get(id);
     }
-    if (!stream) {
-      throw new Error("stream is not ready");
-    }
+
+    stream = await writeFile(id, stream);
+
     const videoClip = new MP4Clip(stream);
 
     await videoClip.ready;
@@ -62,14 +88,13 @@ class VideoDecoder {
 class ImageDecoder {
   #decoderMap = new Map<string, VideoFrame[]>();
   async decode({ id, stream, type }: { id: string, stream?: ReadableStream<Uint8Array>, type?: string }) {
+    console.log("🚀 ~ ImageDecoder ~ decode ~ id:", id)
 
     if (this.#decoderMap.has(id)) {
       return this.#decoderMap.get(id);
     }
 
-    if (!stream) {
-      throw new Error("stream is not ready");
-    }
+    stream = await writeFile(id, stream);
 
     if (!type) {
       throw new Error("type is not ready");
@@ -109,9 +134,7 @@ class AudioDecoder {
       return this.#decoderMap.get(id);
     }
 
-    if (!stream) {
-      throw new Error("stream is not ready");
-    }
+    stream = await writeFile(id, stream);
 
     if (!type) {
       throw new Error("type is not ready");
