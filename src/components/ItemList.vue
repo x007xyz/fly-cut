@@ -1,10 +1,10 @@
 <template>
   <div
-    class="flex flex-col transition-all duration-200 overflow-x-hidden border-r dark:border-gray-600 border-gray-300"
+    class="flex flex-col transition-all duration-200 overflow-x-hidden dark:border-r-2 dark:border-darker border-gray-300 border-r"
     :class="collapse ? 'w-0' : 'w-96'"
   >
-    <div class="min-h-full flex flex-col overflow-hidden dark:border-gray-600 border-gray-300">
-      <div class="h-12 dark:border-gray-600 border-gray-300 flex items-center justify-between">
+    <div class="min-h-full flex flex-col overflow-hidden dark:border-darker border-gray-300">
+      <div class="h-12 dark:border-darker border-gray-300 flex items-center justify-between">
         <span class="inline leading-10 pl-3 select-none">{{ title }}</span>
         <!--
  <ElIcon :size="16" class="mr-3 mt-1 float-right cursor-pointer p-2 box-content" @click="switchCollapse">

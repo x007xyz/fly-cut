@@ -9,14 +9,14 @@
     @mousedown="mouseDownHandler"
   >
       <span
-        class="absolute flex z-10 dark:bg-gray-800 bg-gray-50 "
+        class="absolute flex z-10 dark:bg-darker bg-gray-50 "
         :class="isVertical ? 'h-8 w-4 flex-col' : 'w-8 h-4 flex-row'"
       >
         <el-icon class="flex-auto" :class="isVertical ? 'rotate-90' : ''" :color="iconColor">
           <MoreFilled />
         </el-icon>
       </span>
-    <i class="block dark:bg-gray-600 bg-gray-300" :class="isVertical ? 'w-px h-full' : 'w-full h-px'" />
+    <i class="block dark:bg-darker bg-gray-300" :class="isVertical ? 'dark:w-0.5 w-px h-full' : 'dark:h-0.5 h-px w-full'" />
   </div>
 </template>
 

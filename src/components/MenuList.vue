@@ -1,8 +1,9 @@
 <template>
-  <div class="tabsToggle border-r dark:border-gray-600 border-gray-300">
+  <div class="tabsToggle border-r dark:border-darker border-gray-300 dark:border-r-2">
     <div
       v-for="tab in menuData"
-      :class="{ toggle: selected === tab.key }"
+      class="hover:dark:text-white hover:text-gray-800"
+      :class="selected === tab.key ? 'dark:text-white text-gray-800' : 'dark:text-gray-400 text-gray-800/60'"
       @click="$emit('toggle', tab)"
       :key="tab.key"
     >
@@ -52,11 +53,11 @@
       }
     }
 
-    .toggle {
-      background: rgba(0, 0, 0, .3);
-      box-shadow: 0 1px 0 0 #0000000d;
-      border-radius: 8px;
-    }
+    // .toggle {
+    //   background: rgba(0, 0, 0, .3);
+    //   box-shadow: 0 1px 0 0 #0000000d;
+    //   border-radius: 8px;
+    // }
 
     .divided {
       border-bottom: 1px solid #e7e7ea;

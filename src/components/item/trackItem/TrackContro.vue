@@ -1,5 +1,5 @@
 <template>
-  <div class="pl-4 pb-1 pr-10 w-full h-10 border-b dark:border-gray-600 border-gray-300">
+  <div class="pl-4 pb-1 pr-10 w-full h-10 border-b dark:border-darker border-gray-300">
     <div
       class="float-left h-9 w-32 flex flex-row flex-nowrap items-center justify-around"
     >

@@ -1,5 +1,5 @@
 <template>
-  <div ref="iconList" class="relative w-12 flex h-full flex-col items-center justify-start overflow-y-hidden overflow-x-scroll border-r dark:border-gray-600 border-gray-300">
+  <div ref="iconList" class="relative w-12 flex h-full flex-col items-center justify-start overflow-y-hidden overflow-x-scroll dark:border-r-2 dark:border-darker border-gray-300 border-r">
     <span class="w-full h-5 sticky top-0 left-0 right-0 z-20 dark:bg-gray-800 bg-gray-50" />
     <div class="absolute pt-10 pb-5 min-w-full flex flex-col justify-center min-h-full overflow-x-hidden left-0 right-0">
       <template v-for="(lineData, lineIndex) of listData" :key="lineIndex">

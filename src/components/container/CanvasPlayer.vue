@@ -1,6 +1,6 @@
 <template>
   <div class="flex-1 overflow-hidden relative" ref="playerContent" @click="cancelSelect">
-    <span class="pl-2 inline-block w-full h-10 mb-2 leading-10 border-b dark:border-gray-600 border-gray-300">播放器</span>
+    <span class="pl-2 inline-block w-full h-10 mb-2 leading-10 border-b dark:border-darker border-gray-300">播放器</span>
     <Player :containerSize="containerSize" />
   </div>
 </template>

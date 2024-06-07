@@ -1,5 +1,5 @@
 <template>
-  <header class="h-14 w-full flex flex-nowrap flex-row items-center justify-between border-b dark:border-gray-600 border-gray-300">
+  <header class="h-14 w-full flex flex-nowrap flex-row items-center justify-between border-b dark:border-b-2 dark:border-darker border-gray-200">
     <div class="flex w-1/3 pl-2 items-center">
       <svg
       height="32" aria-hidden="true" viewBox="0 0 16 16" version="1.1" width="32"

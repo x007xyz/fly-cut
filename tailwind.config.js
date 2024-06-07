@@ -27,7 +27,13 @@ module.exports = {
         '24': '6rem',
         '34': '8.5rem',
         '22': '5.5rem'
-      }
+      },
+      colors: {
+        'dark': 'rgb(32, 32, 35)',
+        'darker': 'rgb(18, 18, 18)',
+        'light': '#F5F5F5',
+        'lighter': '#FAFAFA',
+      },
     }
   },
   plugins: [

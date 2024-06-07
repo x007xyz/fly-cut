@@ -4,11 +4,13 @@
 html, body, #vite-app {
     @apply w-full h-full bg-gray-50 text-gray-800 tracking-wide select-none overflow-hidden;
     @apply min-w-1256 min-h-600;
-    @apply dark:bg-gray-800 dark:text-gray-100;
+    @apply dark:bg-dark dark:text-white;
 }
 ::-webkit-scrollbar {/*滚动条整体样式*/
     @apply w-1 h-1;
 }
+/* rgb(18, 18, 18) */
+/* rgb(32, 32, 35) */
 .trackList ::-webkit-scrollbar{
     @apply w-2 h-2;
 }
