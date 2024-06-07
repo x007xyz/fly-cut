@@ -5,7 +5,13 @@
   "private": true,
   "homepage": "https://github.com/x007xyz/fly-cut.git",
   "description": "About A web-based video editing tool implemented with WebCodecs, similar to CapCut Web.使用webcodecs实现的Web端视频编辑工具，类似剪映Web版。",
-  "keywords": ["WebCodecs", "video-editor", "video-processing", "video-cut", "video-clip"],
+  "keywords": [
+    "WebCodecs",
+    "video-editor",
+    "video-processing",
+    "video-cut",
+    "video-clip"
+  ],
   "scripts": {
     "dev": "vite",
     "dev-ssl": "vite",
@@ -23,8 +29,8 @@
     "@leafer-in/editor": "1.0.0-rc.23",
     "@leafer-in/view": "1.0.0-rc.23",
     "@vueuse/core": "^10.9.0",
-    "@webav/av-canvas": "0.9.0-beta.16",
-    "@webav/av-cliper": "0.9.0-beta.16",
+    "@webav/av-canvas": "0.9.0-beta.21",
+    "@webav/av-cliper": "0.9.0-beta.21",
     "axios": "^1.3.2",
     "element-plus": "^2.2.29",
     "leafer-ui": "1.0.0-rc.23",

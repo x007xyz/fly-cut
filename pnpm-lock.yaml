@@ -24,11 +24,11 @@ importers:
         specifier: ^10.9.0
         version: 10.9.0(vue@3.2.47)
       '@webav/av-canvas':
-        specifier: 0.9.0-beta.16
-        version: 0.9.0-beta.16
+        specifier: 0.9.0-beta.21
+        version: 0.9.0-beta.21
       '@webav/av-cliper':
-        specifier: 0.9.0-beta.16
-        version: 0.9.0-beta.16
+        specifier: 0.9.0-beta.21
+        version: 0.9.0-beta.21
       axios:
         specifier: ^1.3.2
         version: 1.3.2
@@ -417,8 +417,8 @@ packages:
     peerDependencies:
       '@babel/core': ^7.0.0-0
 
-  '@babel/runtime@7.24.5':
-    resolution: {integrity: sha512-Nms86NXrsaeU9vbBJKni6gXiEXZ4CVpYVzEjDH9Sb8vmZ3UljyA1GSOJl/6LGPO8EHLuSF9H+IxNXHPX8QHJ4g==}
+  '@babel/runtime@7.24.7':
+    resolution: {integrity: sha512-UwgBRMjJP+xv857DCngvqXI3Iq6J4v0wXmwc6sapg+zyhbwmQX67LUEFrkK5tbyJ30jGuG3ZvWpBiB9LCy1kWw==}
     engines: {node: '>=6.9.0'}
 
   '@babel/standalone@7.20.15':
@@ -1188,11 +1188,11 @@ packages:
   '@vueuse/shared@9.12.0':
     resolution: {integrity: sha512-TWuJLACQ0BVithVTRbex4Wf1a1VaRuSpVeyEd4vMUWl54PzlE0ciFUshKCXnlLuD0lxIaLK4Ypj3NXYzZh4+SQ==}
 
-  '@webav/av-canvas@0.9.0-beta.16':
-    resolution: {integrity: sha512-ntjHp4XigPFlD20IlS9HJK6nlbxn9QydNE7NIvxl58dx6BVCpzAAaQKcRYftdy6JIOlNee/Xl+LREXlMRibdvg==}
+  '@webav/av-canvas@0.9.0-beta.21':
+    resolution: {integrity: sha512-Z9rUTyYHE6aTLu/Sw574yAM8cwDQWPrM5HpzgyPzA7akaB4fRympusCK880C2C0dH3vXurjf+W7tHcbir1t8rw==}
 
-  '@webav/av-cliper@0.9.0-beta.16':
-    resolution: {integrity: sha512-IB2R4wRvP9VUKYXf6njX6PYqoFdqrNq96MmX7g1vesp0Mum+TQNBMDIOBCUntcwUoD+DjeC060Gc1DFrsUYY4g==}
+  '@webav/av-cliper@0.9.0-beta.21':
+    resolution: {integrity: sha512-z/pank6XYVp1Q1yX2heBfGLvxTVa1iEX8uK5nSr9EcOk7Vh4NSjMxfw0b+m4O4h8wH5EL+CbFkzxbkexYNa4yw==}
 
   '@webav/mp4box.js@0.5.3-fenghen':
     resolution: {integrity: sha512-jAN15I3Po1Z6Ns02iknb6KGbird9rd1h9TGldzbwsar+88ZlHd+oVjOQnFavBdNDc5vmULUnldcWGDdKc02npw==}
@@ -2513,6 +2513,9 @@ packages:
 
   opfs-tools@0.4.1:
     resolution: {integrity: sha512-yXmcZ7LVDzOxfTV1eXdWQL20rm+8f1uQqTLYD/kuh6d/7qBWoAXKcYqOQITfReyNR9k/6pOIdgmIT1FEACMeJw==}
+
+  opfs-tools@0.5.1:
+    resolution: {integrity: sha512-3efBndh+72eOqWbf1ZQNOTvBMT1xE5nYFn1anyS5BFGnDrMHVe6zhEepfvu0JPuuSbUI9VCfSmMHylyb7pcyZQ==}
 
   optionator@0.8.3:
     resolution: {integrity: sha512-+IW9pACdk3XWmmTXG8m3upGUJst5XRGzxMRjXzAuJ1XnIFNvfhjjIuYkDvysnPQ7qzqVzLt78BCruntqRhWQbA==}
@@ -3872,7 +3875,7 @@ snapshots:
       '@babel/helper-plugin-utils': 7.24.0
       '@babel/plugin-syntax-typescript': 7.24.1(@babel/core@7.24.4)
 
-  '@babel/runtime@7.24.5':
+  '@babel/runtime@7.24.7':
     dependencies:
       regenerator-runtime: 0.14.1
 
@@ -4644,7 +4647,7 @@ snapshots:
 
   '@videojs/vhs-utils@3.0.5':
     dependencies:
-      '@babel/runtime': 7.24.5
+      '@babel/runtime': 7.24.7
       global: 4.4.0
       url-toolkit: 2.2.5
 
@@ -4901,16 +4904,16 @@ snapshots:
       - '@vue/composition-api'
       - vue
 
-  '@webav/av-canvas@0.9.0-beta.16':
+  '@webav/av-canvas@0.9.0-beta.21':
     dependencies:
-      '@webav/av-cliper': 0.9.0-beta.16
+      '@webav/av-cliper': 0.9.0-beta.21
 
-  '@webav/av-cliper@0.9.0-beta.16':
+  '@webav/av-cliper@0.9.0-beta.21':
     dependencies:
       '@types/dom-webcodecs': 0.1.11
       '@webav/mp4box.js': 0.5.3-fenghen
       m3u8-parser: 7.1.0
-      opfs-tools: 0.4.1
+      opfs-tools: 0.5.1
       wave-resampler: 1.0.0
 
   '@webav/mp4box.js@0.5.3-fenghen': {}
@@ -6155,7 +6158,7 @@ snapshots:
 
   m3u8-parser@7.1.0:
     dependencies:
-      '@babel/runtime': 7.24.5
+      '@babel/runtime': 7.24.7
       '@videojs/vhs-utils': 3.0.5
       global: 4.4.0
 
@@ -6360,6 +6363,8 @@ snapshots:
       is-wsl: 3.1.0
 
   opfs-tools@0.4.1: {}
+
+  opfs-tools@0.5.1: {}
 
   optionator@0.8.3:
     dependencies:

@@ -87,7 +87,7 @@
 
     console.log('合成耗时', performance.now() - start, 'ms');
 
-    com.output().pipeTo(await createFileWriter());
+    await com.output().pipeTo(await createFileWriter());
 
     loading.close();
 
