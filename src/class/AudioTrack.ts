@@ -1,7 +1,7 @@
 import { uniqueId } from 'lodash-es';
 import type { BaseTractItem, TrackType } from './Base';
 import { UnitFrame2μs } from '@/data/trackConfig';
-import { audioDecoder } from '@/utils/webcodecs';
+import { audioDecoder, splitClip } from '@/utils/webcodecs';
 import { OffscreenSprite } from '@webav/av-cliper';
 
 export interface AudioSource {
@@ -59,13 +59,14 @@ export class AudioTrack implements BaseTractItem {
   }
   // 生成合成对象
   async combine() {
-    const clip = await audioDecoder.decode({ id: this.source.id });
+    const audio = await audioDecoder.decode({ id: this.source.id });
+    const clip = await splitClip(audio, { offsetL: this.offsetL, offsetR: this.offsetR, frameCount: this.frameCount });
     if (!clip) {
       throw new Error('clip is not ready');
     }
     const spr = new OffscreenSprite(clip);
     // TODO：需要支持裁剪
-    spr.time = { offset: this.start * UnitFrame2μs, duration: this.frameCount * UnitFrame2μs };
+    spr.time = { offset: this.start * UnitFrame2μs, duration: (this.end - this.start) * UnitFrame2μs };
 
     return spr;
   }

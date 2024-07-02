@@ -4,6 +4,7 @@ import type { VideoSource } from "@/class/VideoTrack";
 import { baseFps } from "@/data/trackConfig";
 import { Combinator, MP4Clip, OffscreenSprite, decodeImg, AudioClip } from "@webav/av-cliper";
 import { file, write } from "opfs-tools";
+import { UnitFrame2μs } from '@/data/trackConfig';
 
 async function writeFile(id: string, stream?: ReadableStream<Uint8Array>) {
   if (!stream) {
@@ -153,6 +154,17 @@ class AudioDecoder {
 
     return clip;
   }
+}
+
+export const splitClip = async (source: IClip, { offsetL, offsetR, frameCount } : { offsetL: number, offsetR: number, frameCount: number }) => {
+  if (offsetL === 0 && offsetR === 0) {
+    return source
+  }
+  const start = offsetL * UnitFrame2μs
+  // 使用start裁剪视频
+  const clip = offsetL === 0 ? source : (await source.split(start))[1];
+  const end = (frameCount - offsetR - offsetL) * UnitFrame2μs;
+  return offsetR === 0 ? clip : (await clip.split(end))[0];
 }
 
 export const videoDecoder = new VideoDecoder();

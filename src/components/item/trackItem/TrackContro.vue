@@ -117,16 +117,9 @@
       let active = trackStore.trackList[trackStore.selectTrackItem.line].list[trackStore.selectTrackItem.index];
 
       if (splitTime > active.start && splitTime < active.end && active.type === 'video') {
-        let copy = JSON.parse(JSON.stringify(active));
-
-        active.end = splitTime;
-        active.offsetR = active.frameCount - active.end;
-
-        copy.start = splitTime;
-        copy.offsetL = splitTime - 1;
-
-        copy.id = getId();
-        trackStore.addTrack(copy, trackStore.selectTrackItem.line, false, 0);
+        const videoTrack = active.split(splitTime);
+        videoTrack.resize({ width: playerStore.playerWidth, height: playerStore.playerHeight });
+        trackStore.addTrack(videoTrack);
       }
     }
   }

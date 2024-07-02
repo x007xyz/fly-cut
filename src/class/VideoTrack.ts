@@ -1,6 +1,6 @@
 import { uniqueId } from 'lodash-es';
 import type { BaseTractItem, TrackType } from './Base';
-import { videoDecoder } from '@/utils/webcodecs';
+import { videoDecoder, splitClip } from '@/utils/webcodecs';
 import { OffscreenSprite } from '@webav/av-cliper';
 import { UnitFrame2μs } from '@/data/trackConfig';
 
@@ -113,18 +113,28 @@ export class VideoTrack implements BaseTractItem {
   }
   // 生成合成对象
   async combine(playerSize: { width: number, height: number }, outputRatio: number) {
-    const clip = await videoDecoder.decode({ id: this.source.id });
+    const video = await videoDecoder.decode({ id: this.source.id });
+    const clip = await splitClip(video, { offsetL: this.offsetL, offsetR: this.offsetR, frameCount: this.frameCount });
     if (!clip) {
       throw new Error('clip is not ready');
     }
     const spr = new OffscreenSprite(clip);
     // TODO：需要支持裁剪
-    spr.time = { offset: this.start * UnitFrame2μs, duration: this.frameCount * UnitFrame2μs };
+    spr.time = { offset: this.start * UnitFrame2μs, duration: (this.end - this.start) * UnitFrame2μs };
     spr.rect.x = this.getDrawX(playerSize.width) * outputRatio;
     spr.rect.y = this.getDrawY(playerSize.height) * outputRatio;
     spr.rect.w = this.drawWidth * outputRatio;
     spr.rect.h = this.drawHeight * outputRatio;
 
     return spr;
+  }
+  split(cutFrame: number) {
+    this.end = cutFrame;
+    this.offsetR = this.frameCount + this.start - cutFrame; // 根据cutFrame对视频进行分割
+    // 根据cutFrame对视频进行分割
+    const copy = new VideoTrack(this.source, cutFrame);
+
+    copy.offsetL = cutFrame - this.start;
+    return copy;
   }
 }
