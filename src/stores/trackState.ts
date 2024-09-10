@@ -1,7 +1,7 @@
-import { ref, reactive, computed } from 'vue';
-import { defineStore } from 'pinia';
-import { checkTrackListOverlap } from '@/utils/storeUtil';
-import type { Track, TrackLineItem } from '@/class/Track';
+import { checkTrackListOverlap } from '@/utils/storeUtil'
+import { defineStore } from 'pinia'
+import { computed, reactive, ref } from 'vue'
+import type { Track, TrackLineItem } from '@/class/Track'
 
 export const useTrackState = defineStore('trackState', () => {
   const dragData = reactive({ // 拖拽数据
@@ -9,41 +9,41 @@ export const useTrackState = defineStore('trackState', () => {
     dragType: '',
     dragPoint: {
       x: 0,
-      y: 0
+      y: 0,
     },
     // 吸附辅助线
     fixLines: [] as { position: number, frame: number }[][],
     moveX: 0,
-    moveY: 0
-  });
+    moveY: 0,
+  })
   const moveTrackData = reactive({ // 行内移动
     lineIndex: -1,
-    itemIndex: -1
-  });
+    itemIndex: -1,
+  })
   // 轨道放大比例
-  const trackScale = ref(parseInt(localStorage.trackS || '60'));
-  const trackList = reactive<TrackLineItem[]>([]);
+  const trackScale = ref(Number.parseInt(localStorage.trackS || '60'))
+  const trackList = reactive<TrackLineItem[]>([])
 
   // 选中元素坐标
   const selectTrackItem = reactive({
     line: -1,
-    index: -1
-  });
+    index: -1,
+  })
   // 选中元素
   const selectResource = computed(() => {
     if (selectTrackItem.line === -1) {
-      return null;
+      return null
     }
-    return trackList[selectTrackItem.line]?.list[selectTrackItem.index] || null;
-  });
+    return trackList[selectTrackItem.line]?.list[selectTrackItem.index] || null
+  })
   // 删除元素
   function removeTrack(lineIndex: number, itemIndex: number) {
-    trackList[lineIndex].list.splice(itemIndex, 1);
+    trackList[lineIndex].list.splice(itemIndex, 1)
     if (trackList[lineIndex].list.length === 0 && !trackList[lineIndex].main) {
-      trackList.splice(lineIndex, 1);
+      trackList.splice(lineIndex, 1)
     }
     if (trackList.length === 1 && trackList[0].list.length === 0) {
-      trackList.splice(0, 1);
+      trackList.splice(0, 1)
     }
   }
   // 复用已有行
@@ -97,13 +97,13 @@ export const useTrackState = defineStore('trackState', () => {
   // }
   function selectTrackById(id: string) {
     trackList.forEach((item, index) => {
-        item.list.forEach((trackItem, trackIndex) => {
-          if (trackItem.id === id) {
-            selectTrackItem.line = index;
-            selectTrackItem.index = trackIndex;
-          }
-        });
-    });
+      item.list.forEach((trackItem, trackIndex) => {
+        if (trackItem.id === id) {
+          selectTrackItem.line = index
+          selectTrackItem.index = trackIndex
+        }
+      })
+    })
   }
   /**
    * 添加片段逻辑：
@@ -112,41 +112,42 @@ export const useTrackState = defineStore('trackState', () => {
    * 没有轨道时，新增轨道插入
    */
   function addTrack(newItem: Track) {
-    const lines = trackList.filter(line => line.type === newItem.type);
+    const lines = trackList.filter(line => line.type === newItem.type)
 
     for (let index = 0; index < lines.length; index++) {
-      const line = lines[index];
-      const { hasOverlap, insertIndex } = checkTrackListOverlap(line.list, newItem);
+      const line = lines[index]
+      const { hasOverlap, insertIndex } = checkTrackListOverlap(line.list, newItem)
       if (!hasOverlap) {
-        line.list.splice(insertIndex, 0, newItem);
-        selectTrackItem.line = index;
-        selectTrackItem.index = insertIndex;
-        return;
+        line.list.splice(insertIndex, 0, newItem)
+        selectTrackItem.line = index
+        selectTrackItem.index = insertIndex
+        return
       }
     }
 
     if (['audio'].includes(newItem.type)) {
       trackList.push({
         type: newItem.type,
-        list: [newItem]
-      });
-      selectTrackItem.line = 0;
-      selectTrackItem.index = 0;
-    } else {
+        list: [newItem],
+      })
+      selectTrackItem.line = 0
+      selectTrackItem.index = 0
+    }
+    else {
       trackList.unshift({
         type: newItem.type,
-        list: [newItem]
-      });
-      selectTrackItem.line = trackList.length - 1;
-      selectTrackItem.index = 0;
+        list: [newItem],
+      })
+      selectTrackItem.line = trackList.length - 1
+      selectTrackItem.index = 0
     }
   }
 
   const frameCount = computed(() => {
     return trackList.reduce((res, { list }) => {
-      return Math.max(list.reduce((max, track) => Math.max(max, track.end), 0), res);
-    }, 0);
-  });
+      return Math.max(list.reduce((max, track) => Math.max(max, track.end), 0), res)
+    }, 0)
+  })
 
   // watchEffect(() => {
   //   localStorage.trackS = trackScale.value;
@@ -164,6 +165,6 @@ export const useTrackState = defineStore('trackState', () => {
     selectTrackById,
     removeTrack,
     frameCount,
-    dragData
-  };
-});
+    dragData,
+  }
+})

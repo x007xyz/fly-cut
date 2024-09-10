@@ -1,27 +1,27 @@
-import { createRouter, createWebHistory } from 'vue-router';
-import type { RouteRecordRaw } from 'vue-router';
-import type { App } from 'vue';
-export const routes: Array<RouteRecordRaw> = [];
+import { createRouter, createWebHistory } from 'vue-router'
+import type { RouteRecordRaw } from 'vue-router'
+
+export const routes: Array<RouteRecordRaw> = []
 interface Moudle {
   default: RouteRecordRaw
 }
 
 // 将modules下的全部路由配置文件加载到routes中
-const moduleRouterList = import.meta.glob('pages/routers/*.ts', { eager: true });
+const moduleRouterList = import.meta.glob('pages/routers/*.ts', { eager: true })
 for (const path in moduleRouterList) {
-  const routerInstance = (moduleRouterList[path] as Moudle).default;
+  const routerInstance = (moduleRouterList[path] as Moudle).default
   // 自动关联routers与views 下的同名文件
-  routerInstance.component = () => import(`@/pages/views/${routerInstance.name as string}.vue`);
-  routes.push(routerInstance);
+  routerInstance.component = () => import(`@/pages/views/${routerInstance.name as string}.vue`)
+  routes.push(routerInstance)
 }
 
 export const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
-  routes
-});
+  routes,
+})
 
-router.beforeResolve(async to => {
+router.beforeResolve(async (to) => {
   if (to.meta.title) {
-    window.document.title = to.meta.title as string;
+    window.document.title = to.meta.title as string
   }
-});
+})

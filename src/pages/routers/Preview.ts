@@ -2,6 +2,6 @@ export default {
   name: 'Preview',
   path: '/preview',
   meta: {
-    title: '预览'
-  }
-};
+    title: '预览',
+  },
+}

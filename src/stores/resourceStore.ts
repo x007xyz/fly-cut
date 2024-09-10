@@ -1,3 +1,3 @@
-import { defineStore } from 'pinia';
+import { defineStore } from 'pinia'
 
-export const useResourceStore = defineStore('resourceStore', () => {});
+export const useResourceStore = defineStore('resourceStore', () => {})

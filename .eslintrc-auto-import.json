@@ -51,6 +51,19 @@
     "watch": "readonly",
     "watchEffect": "readonly",
     "watchPostEffect": "readonly",
-    "watchSyncEffect": "readonly"
+    "watchSyncEffect": "readonly",
+    "Component": "readonly",
+    "ComponentPublicInstance": "readonly",
+    "ComputedRef": "readonly",
+    "ExtractDefaultPropTypes": "readonly",
+    "ExtractPropTypes": "readonly",
+    "ExtractPublicPropTypes": "readonly",
+    "InjectionKey": "readonly",
+    "PropType": "readonly",
+    "Ref": "readonly",
+    "VNode": "readonly",
+    "WritableComputedRef": "readonly",
+    "toValue": "readonly",
+    "ElMessage": "readonly"
   }
 }

@@ -2,8 +2,8 @@
 export const Constant = {
   TokenKey: 'access_token',
   Uid: 'uid',
-  ThemeKey: 'dark'
-};
+  ThemeKey: 'dark',
+}
 // 文件类型
 export const FileTypeMap = {
   bpm: 'image/bpm',
@@ -12,8 +12,8 @@ export const FileTypeMap = {
   gif: 'image/gif',
   mp3: 'audio/mp3',
   mp4: 'video/mpeg4',
-  aac: 'audio/x-mei-aac'
-};
+  aac: 'audio/x-mei-aac',
+}
 export const defaultMoveOptions = {
   draggable: true,
   resizable: false,
@@ -38,5 +38,5 @@ export const defaultMoveOptions = {
   rotatable: false, // 是否可旋转
   throttleRotate: 0.2,
   elementGuidelines: [],
-  pinchable: false // 捏合开关
-};
+  pinchable: false, // 捏合开关
+}

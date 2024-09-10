@@ -1,3 +1,35 @@
+<script setup lang="ts">
+import TrackItem from '@/components/item/trackItem/TrackItem.vue'
+import { TrackHeightMap } from '@/data/trackConfig'
+import { useTrackState } from '@/stores/trackState'
+import { computed } from 'vue'
+
+const props = defineProps({
+  isMain: {
+    type: Boolean,
+    default: false,
+  },
+  lineType: {
+    type: String,
+    default: '',
+  },
+  lineIndex: {
+    type: Number,
+    default: 0,
+  },
+  lineData: {
+    type: Array,
+    default() {
+      return []
+    },
+  },
+})
+const store = useTrackState()
+const isActive = computed(() => {
+  return store.selectTrackItem.line === props.lineIndex
+})
+</script>
+
 <template>
   <div
     class="mb-1 mt-1 relative ml-2 trackLine"
@@ -7,46 +39,13 @@
   >
     <template v-for="(item, index) of lineData" :key="item.id">
       <TrackItem
-          :lineIndex="lineIndex"
-          :itemIndex="index"
-          :trackItem="item"
+        :line-index="lineIndex"
+        :item-index="index"
+        :track-item="item"
       />
     </template>
   </div>
 </template>
-
-<script setup lang="ts">
-  import { TrackHeightMap } from '@/data/trackConfig';
-  import { useTrackState } from '@/stores/trackState';
-  import { computed } from 'vue';
-  import TrackItem from '@/components/item/trackItem/TrackItem.vue';
-  import { usePlayerState } from '@/stores/playerState';
-  const props = defineProps({
-    isMain: {
-      type: Boolean,
-      default: false
-    },
-    lineType: {
-      type: String,
-      default: ''
-    },
-    lineIndex: {
-      type: Number,
-      default: 0
-    },
-    lineData: {
-      type: Array,
-      default() {
-        return [];
-      }
-    }
-  });
-  const playerStore = usePlayerState();
-  const store = useTrackState();
-  const isActive = computed(() => {
-    return store.selectTrackItem.line === props.lineIndex;
-  });
-</script>
 
 <style scoped>
   .showLine-t::after{

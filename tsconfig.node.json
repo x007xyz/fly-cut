@@ -1,10 +1,8 @@
 {
   "compilerOptions": {
-    "target": "ES2020",
-    "jsx": "preserve",
-    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "target": "ES2022",
+    "lib": ["ES2023"],
     "moduleDetection": "force",
-    "useDefineForClassFields": true,
     "module": "ESNext",
 
     /* Bundler mode */
@@ -20,5 +18,5 @@
     "isolatedModules": true,
     "skipLibCheck": true
   },
-  "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.vue"]
+  "include": ["vite.config.ts"]
 }

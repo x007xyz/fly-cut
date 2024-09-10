@@ -1,15 +1,15 @@
-import { App, Rect } from 'leafer-ui';
-import '@leafer-in/editor';
-import '@leafer-in/view';
-import { usePlayerState } from '@/stores/playerState';
+import { usePlayerState } from '@/stores/playerState'
+import { App } from 'leafer-ui'
+import '@leafer-in/editor'
+import '@leafer-in/view'
 
 export default () => {
-  const playerStore = usePlayerState();
+  const playerStore = usePlayerState()
   const app = new App({
     view: 'player',
     editor: { lockRatio: true, around: 'center', skewable: false },
-    tree: { width: 1080, height: 1920, fill: 'rgb(50,205,121)' }
-  });
+    tree: { width: 1080, height: 1920, fill: 'rgb(50,205,121)' },
+  })
 
   // const rect = Rect.one({ editable: true, fill: 'rgb(50,205,121)', cornerRadius: 30 }, 100, 100);
   // app.tree.add(rect);
@@ -17,6 +17,6 @@ export default () => {
   // app.editor.target = rect;
 
   watch([() => playerStore.playerHeight, () => playerStore.playerWidth], ([playerHeight, playerWidth]) => {
-    app.tree.zoom(1920 / playerHeight);
-  });
-};
+    app.tree.zoom(1920 / playerHeight)
+  })
+}

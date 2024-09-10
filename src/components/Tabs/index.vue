@@ -1,22 +1,22 @@
+<script setup lang="ts">
+defineProps<{
+  selected: string
+  mode: 'button' | 'text'
+  items: { label: string, value: string }[]
+}>()
+
+defineEmits({
+  select: (payload: { label: string, value: string }) => typeof payload === 'object',
+})
+</script>
+
 <template>
   <div class="flex">
-    <div v-for="item in items" class="h-8 p-2 flex justify-center items-center cursor-pointer" :key="item.value" :class="{ selected: selected === item.value }" @click="$emit('select', item)">
+    <div v-for="item in items" :key="item.value" class="h-8 p-2 flex justify-center items-center cursor-pointer" :class="{ selected: selected === item.value }" @click="$emit('select', item)">
       {{ item.label }}
     </div>
   </div>
 </template>
-
-<script setup lang="ts">
-  defineProps<{
-    selected: string,
-    mode: 'button' | 'text',
-    items: { label: string, value: string }[]
-  }>();
-
-  defineEmits({
-    select: (payload: { label: string, value: string }) => true
-  });
-</script>
 
 <style scoped>
 .selected {

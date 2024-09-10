@@ -1,18 +1,15 @@
-/* eslint-disable */
-
-import type { VideoSource } from "@/class/VideoTrack";
-import { baseFps } from "@/data/trackConfig";
-import { Combinator, MP4Clip, OffscreenSprite, decodeImg, AudioClip } from "@webav/av-cliper";
-import { file, write } from "opfs-tools";
-import { UnitFrame2μs } from '@/data/trackConfig';
+import { baseFps, UnitFrame2μs } from '@/data/trackConfig'
+import { AudioClip, Combinator, decodeImg, MP4Clip, OffscreenSprite } from '@webav/av-cliper'
+import { file, write } from 'opfs-tools'
+import type { VideoSource } from '@/class/VideoTrack'
 
 async function writeFile(id: string, stream?: ReadableStream<Uint8Array>) {
   if (!stream) {
     // 没有数据流，尝试从opfs中获取
-    stream = await file(id).stream();
+    stream = await file(id).stream()
 
     if (!stream) {
-      throw new Error("stream is not ready");
+      throw new Error('stream is not ready')
     }
   }
 
@@ -20,85 +17,86 @@ async function writeFile(id: string, stream?: ReadableStream<Uint8Array>) {
 
   // 如果opfs中没有数据则存储
   if (!(await file(id).exists())) {
-    await write(id, stream);
-    console.log('opfs存储文件耗时', performance.now() - start, 'ms');
+    await write(id, stream)
+    console.log('opfs存储文件耗时', performance.now() - start, 'ms')
 
-    stream = await file(id).stream();
+    stream = await file(id).stream()
 
-    console.log('opfs读取文件耗时', performance.now() - start, 'ms');
+    console.log('opfs读取文件耗时', performance.now() - start, 'ms')
   }
 
-  return stream;
+  return stream
 }
 
 class VideoDecoder {
-  #decoderMap = new Map<string, MP4Clip>();
+  #decoderMap = new Map<string, MP4Clip>()
 
   #thumbnailsMap = new Map<string, {
-      img: Blob;
-      ts: number;
-  }[]>();
+    img: Blob
+    ts: number
+  }[]>()
 
   async thumbnails(source: VideoSource) {
     if (this.#thumbnailsMap.has(source.id)) {
-      return this.#thumbnailsMap.get(source.id);
+      return this.#thumbnailsMap.get(source.id)
     }
-    const clip = await this.decode({ id: source.id });
+    const clip = await this.decode({ id: source.id })
 
     if (!clip) {
-      throw new Error("clip is not ready");
+      throw new Error('clip is not ready')
     }
-    const thumbnails = await clip.thumbnails(50, { step: 1e6 });
+    const thumbnails = await clip.thumbnails(50, { step: 1e6 })
 
-    this.#thumbnailsMap.set(source.id, thumbnails);
+    this.#thumbnailsMap.set(source.id, thumbnails)
 
-    return thumbnails;
+    return thumbnails
   }
 
   async decode({ id, stream, type }: { id: string, stream?: ReadableStream<Uint8Array>, type?: string }) {
     if (this.#decoderMap.has(id)) {
-      return this.#decoderMap.get(id);
+      return this.#decoderMap.get(id)
     }
 
-    stream = await writeFile(id, stream);
+    stream = await writeFile(id, stream)
 
-    const videoClip = new MP4Clip(stream);
+    const videoClip = new MP4Clip(stream)
 
-    await videoClip.ready;
+    await videoClip.ready
 
-    this.#decoderMap.set(id, videoClip);
+    this.#decoderMap.set(id, videoClip)
 
-    return videoClip;
+    return videoClip
   }
+
   async getFrame(url: string, frameIndex: number) {
-    let clip = this.#decoderMap.get(url);
+    let clip = this.#decoderMap.get(url)
     if (!clip) {
       clip = await this.decode({ url })
     }
 
     // tick根据时间获取帧，可能存在这一时间帧为空的情况，修改为在范围内寻找帧
     // 前几帧可能为空，所以限定最小时间为5/30秒
-    let time = Math.max(((frameIndex - 1) / baseFps * 1e6), 5 / 30 * 1e6) ;
-    let video : VideoFrame | undefined;
-    const frame = (await (clip as MP4Clip).tick(time));
+    const time = Math.max(((frameIndex - 1) / baseFps * 1e6), 5 / 30 * 1e6)
+    let video: VideoFrame | undefined
+    const frame = (await (clip as MP4Clip).tick(time))
 
-    return frame.video;
+    return frame.video
   }
 }
 
 class ImageDecoder {
-  #decoderMap = new Map<string, VideoFrame[]>();
+  #decoderMap = new Map<string, VideoFrame[]>()
   async decode({ id, stream, type }: { id: string, stream?: ReadableStream<Uint8Array>, type?: string }) {
-    console.log("🚀 ~ ImageDecoder ~ decode ~ id:", id)
+    console.log('🚀 ~ ImageDecoder ~ decode ~ id:', id)
 
     if (this.#decoderMap.has(id)) {
-      return this.#decoderMap.get(id);
+      return this.#decoderMap.get(id)
     }
 
-    stream = await writeFile(id, stream);
+    stream = await writeFile(id, stream)
 
     if (!type) {
-      throw new Error("type is not ready");
+      throw new Error('type is not ready')
     }
 
     // 接收的数据可能是远程数据（URL），也可能是本地数据（file）
@@ -110,65 +108,65 @@ class ImageDecoder {
     const frames = await decodeImg(
       stream,
       type,
-    );
+    )
 
     // 存储解析后的帧
-    this.#decoderMap.set(id, frames);
+    this.#decoderMap.set(id, frames)
 
-    return frames;
+    return frames
   }
+
   async getFrame(type: string, url: string, frameIndex: number) {
-    let frames = this.#decoderMap.get(url);
+    let frames = this.#decoderMap.get(url)
     if (!frames) {
-      await this.decode({ url, type });
-      frames = this.#decoderMap.get(url);
+      await this.decode({ url, type })
+      frames = this.#decoderMap.get(url)
     }
-    return frames?.[frameIndex % frames.length];
+    return frames?.[frameIndex % frames.length]
   }
 }
 
 class AudioDecoder {
-  #decoderMap = new Map<string, AudioClip>();
+  #decoderMap = new Map<string, AudioClip>()
   async decode({ id, stream, type }: { id: string, stream?: ReadableStream<Uint8Array>, type?: string }) {
-
     if (this.#decoderMap.has(id)) {
-      return this.#decoderMap.get(id);
+      return this.#decoderMap.get(id)
     }
 
-    stream = await writeFile(id, stream);
+    stream = await writeFile(id, stream)
 
     if (!type) {
-      throw new Error("type is not ready");
+      throw new Error('type is not ready')
     }
 
-    const clip = new AudioClip(stream);
+    const clip = new AudioClip(stream)
 
     if (!clip) {
       // 提示解析视频失败
-      throw new Error("解析视频失败");
+      throw new Error('解析视频失败')
     }
 
-    await clip.ready;
+    await clip.ready
 
     this.#decoderMap.set(id, clip)
 
-    return clip;
+    return clip
   }
 }
 
-export const splitClip = async (source: IClip, { offsetL, offsetR, frameCount } : { offsetL: number, offsetR: number, frameCount: number }) => {
+export async function splitClip(source: IClip, { offsetL, offsetR, frameCount }: { offsetL: number, offsetR: number, frameCount: number }) {
   if (offsetL === 0 && offsetR === 0) {
     return source
   }
   const start = offsetL * UnitFrame2μs
   // 使用start裁剪视频
-  const clip = offsetL === 0 ? source : (await source.split(start))[1];
-  const end = (frameCount - offsetR - offsetL) * UnitFrame2μs;
-  return offsetR === 0 ? clip : (await clip.split(end))[0];
+  const clip = offsetL === 0 ? source : (await source.split(start))[1]
+  const end = (frameCount - offsetR - offsetL) * UnitFrame2μs
+  return offsetR === 0 ? clip : (await clip.split(end))[0]
 }
 
-export const videoDecoder = new VideoDecoder();
+export const videoDecoder = new VideoDecoder()
 
-export const imageDecoder = new ImageDecoder();
+export const imageDecoder = new ImageDecoder()
 
-export const audioDecoder = new AudioDecoder();
+export const audioDecoder = new AudioDecoder()

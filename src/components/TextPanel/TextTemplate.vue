@@ -1,3 +1,34 @@
+<script lang="ts" setup>
+import { templateList } from './templateList'
+
+defineEmits({
+  addText: (item: any) => typeof item === 'object',
+})
+
+function calcStyle(item: { fill: string, stroke?: string, textBackgroundColor?: string }) {
+  const style = { color: item.fill }
+  const strokeWidth = 2
+  const strokeColor = item.stroke
+  if (strokeColor) {
+    style.textShadow = `-${strokeWidth}px -${strokeWidth}px ${strokeColor}, ${strokeWidth}px -${strokeWidth}px ${strokeColor}, -${strokeWidth}px ${strokeWidth}px ${strokeColor}, ${strokeWidth}px ${strokeWidth}px ${strokeColor}`
+    // style.textStroke = `${strokeWidth}px ${strokeColor}`;
+  }
+  const backgroundColor = item.textBackgroundColor
+  if (backgroundColor) {
+    style.backgroundColor = backgroundColor
+  }
+  return style
+}
+
+// const style = computed(() => {
+//   const strokeWidth = 2
+//   const strokeColor = 'red'
+//   return {
+//     textShadow: `-${strokeWidth}px -${strokeWidth}px red, ${strokeWidth}px -${strokeWidth}px red, -${strokeWidth}px ${strokeWidth}px red, ${strokeWidth}px ${strokeWidth}px ${strokeColor}`,
+//   }
+// })
+</script>
+
 <template>
   <ul class="textList">
     <li v-for="(item, index) in templateList" :key="index" @click="$emit('addText', item)">
@@ -6,36 +37,6 @@
     </li>
   </ul>
 </template>
-
-<script lang="ts" setup>
-  import { templateList } from './templateList';
-  const emit = defineEmits({
-    addText: (item: any) => true
-  });
-
-  function calcStyle(item: { fill: string, stroke?: string, textBackgroundColor?: string }) {
-    const style = { color: item.fill };
-    const strokeWidth = 2;
-    const strokeColor = item.stroke;
-    if (strokeColor) {
-      style.textShadow = `-${strokeWidth}px -${strokeWidth}px ${strokeColor}, ${strokeWidth}px -${strokeWidth}px ${strokeColor}, -${strokeWidth}px ${strokeWidth}px ${strokeColor}, ${strokeWidth}px ${strokeWidth}px ${strokeColor}`;
-      // style.textStroke = `${strokeWidth}px ${strokeColor}`;
-    }
-    const backgroundColor = item.textBackgroundColor;
-    if (backgroundColor) {
-      style.backgroundColor = backgroundColor;
-    }
-    return style;
-  }
-
-  const style = computed(() => {
-    const strokeWidth = 2;
-    const strokeColor = 'red';
-    return {
-      textShadow: `-${strokeWidth}px -${strokeWidth}px red, ${strokeWidth}px -${strokeWidth}px red, -${strokeWidth}px ${strokeWidth}px red, ${strokeWidth}px ${strokeWidth}px ${strokeColor}`
-    };
-  });
-</script>
 
 <style lang="scss" scoped>
   .text {

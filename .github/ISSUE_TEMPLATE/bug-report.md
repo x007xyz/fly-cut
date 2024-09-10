@@ -27,6 +27,6 @@ assignees: Cc-Edit
 如果能提交截图那就太棒了
 
 **系统信息:**
- - OS:  
+ - OS:
  - Browser：
  - Browser Version

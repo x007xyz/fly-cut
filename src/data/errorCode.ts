@@ -16,7 +16,7 @@ const errorCode = {
   502: '网关错误',
   503: '服务不可用，服务器暂时维护',
   504: '网关超时',
-  505: 'HTTP版本不支持'
-};
+  505: 'HTTP版本不支持',
+}
 
-export default errorCode;
+export default errorCode

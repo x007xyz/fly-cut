@@ -19,5 +19,5 @@ export const templateList = [
   { fill: '#FFF', stroke: undefined, textBackgroundColor: '#EB6969' },
   { fill: '#000', stroke: undefined, textBackgroundColor: '#FFDE02' },
   { fill: '#FFF', stroke: undefined, textBackgroundColor: '#00A16C' },
-  { fill: '#FFF', stroke: undefined, textBackgroundColor: '#2994D8' }
-];
+  { fill: '#FFF', stroke: undefined, textBackgroundColor: '#2994D8' },
+]
