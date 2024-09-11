@@ -96,7 +96,7 @@ export function selectFile(options: FileUploadOptions): Promise<File[]> {
     }
     // 绑定事件
     input.onchange = function () {
-      let files = Array.from(this.files)
+      let files = Array.from<File>((this as any).files)
       // 获取文件列表
       if (files) {
         const length = files.length

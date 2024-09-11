@@ -5,4 +5,5 @@ export default antfu({
   rules: {
     'no-console': ['warn', { allow: ['warn', 'error'] }],
   },
+  extends: ['./.eslintrc-auto-import.json'],
 })
