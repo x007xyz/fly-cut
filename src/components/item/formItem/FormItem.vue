@@ -130,8 +130,8 @@
   const { selectResource, selectTrackItem, trackList } = storeToRefs(trackStore);
   const formValue = computed({
     get() {
-      if (selectResource.value) {
-        return get(toRaw(trackList.value[selectTrackItem.value.line].list[selectTrackItem.value.index]), props.componentData.mappingKey);
+      if (trackStore.selectResource) {
+        return get(trackStore.trackList[trackStore.selectTrackItem.line].list[trackStore.selectTrackItem.index], props.componentData.mappingKey);
       } else {
         return null;
       }
