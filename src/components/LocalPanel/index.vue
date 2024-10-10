@@ -2,9 +2,11 @@
 import AudioPng from '@/assets/audio.png'
 import { getMD5 } from '@/class/Base'
 import { useMediaResourceStore } from '@/stores/mediaResourceStore'
+import { usePlayerState } from '@/stores/playerState'
 import createClip from '@/utils/createClip'
 import { selectFile } from '@/utils/file'
 import { getFileById, writeResourceToOPFS } from '@/utils/fileManager'
+import { VisibleSprite } from '@webav/av-cliper'
 import mime from 'mime/lite'
 import type { MediaResource } from '@/stores/mediaResourceStore'
 
@@ -115,10 +117,13 @@ function loadResource(resource: MediaResource) {
   return true
 }
 
+const playerState = usePlayerState()
+
 // 添加到轨道
 function addToTrack(resource: any) {
   // 这里添加将资源添加到轨道的逻辑
   console.log('添加到轨道:', resource)
+  playerState.addSprite(new VisibleSprite(toRaw(resource.clip)))
 }
 </script>
 

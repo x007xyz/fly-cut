@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import SplitLine from '@/components/SplitLine.vue'
-import TrackContro from '@/components/TrackContainer/TrackContro.vue'
-import TrackList from '@/components/TrackContainer/TrackList.vue'
 import { usePageState } from '@/stores/pageState'
 import { useTrackState } from '@/stores/trackState'
 import { computed, reactive } from 'vue'
+import TrackContro from './TrackContro.vue'
+import TrackList from './TrackList.vue'
 
 const page = usePageState()
 const store = useTrackState()

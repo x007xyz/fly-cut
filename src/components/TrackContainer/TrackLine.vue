@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import TrackItem from '@/components/item/trackItem/TrackItem.vue'
+import TrackItem from '@/components/TrackContainer/TrackItem.vue'
 import { TrackHeightMap } from '@/data/trackConfig'
 import { useTrackState } from '@/stores/trackState'
 import { computed } from 'vue'

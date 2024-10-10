@@ -1,3 +1,5 @@
+import type { IClip } from '@webav/av-cliper'
+
 export type TrackType = 'video' | 'audio' | 'text' | 'image' | 'effect' | 'transition' | 'filter'
 
 export interface BaseTractItem {
@@ -7,6 +9,7 @@ export interface BaseTractItem {
   start: number // 在轨道上的起始位置，单位为帧
   end: number // 在轨道上的结束位置
   frameCount: number // 总帧数
+  clip: IClip
 }
 
 export async function getMD5(arrayBuffer: ArrayBuffer) {

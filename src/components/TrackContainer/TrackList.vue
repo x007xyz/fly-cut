@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import VideoIcon from '@/components/icons/VideoIcon.vue'
-import TimeLine from '@/components/item/trackItem/TimeLine.vue'
-import TrackLine from '@/components/item/trackItem/TrackLine.vue'
-import TrackListIcon from '@/components/item/trackItem/TrackListIcon.vue'
-import TrackPlayPoint from '@/components/item/trackItem/TrackPlayPoint.vue'
+import TimeLine from '@/components/TrackContainer/TimeLine.vue'
+import TrackLine from '@/components/TrackContainer/TrackLine.vue'
+import TrackListIcon from '@/components/TrackContainer/TrackListIcon.vue'
+import TrackPlayPoint from '@/components/TrackContainer/TrackPlayPoint.vue'
 import { usePlayerState } from '@/stores/playerState'
 import { useTrackState } from '@/stores/trackState'
 import { getGridPixel, getSelectFrame } from '@/utils/canvasUtil'

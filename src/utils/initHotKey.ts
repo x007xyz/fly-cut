@@ -12,7 +12,7 @@ export function initHotKey() {
     const { key } = event
     switch (key) {
       case 'Backspace':
-        // 删除操作
+        // 删除选中轨道
         if (store.selectTrackItem.line !== -1 && store.selectTrackItem.index !== -1) {
           store.removeTrack(store.selectTrackItem.line, store.selectTrackItem.index)
           store.selectTrackItem.line = -1

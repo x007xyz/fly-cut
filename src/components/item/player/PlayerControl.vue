@@ -20,50 +20,31 @@ const playTime = computed(() => {
 const allTime = computed(() => {
   return formatPlayerTime(trackStore.frameCount)
 })
-const playTimer = ref()
+let playTimer: ReturnType<typeof preciseInterval> | null = null
 const timeStamp = 1000 / 30
 // 视频暂停
 function pauseVideo() {
-  if (props.disable)
-    return
+  store.pause()
   store.isPause = true
-  playTimer.value?.cancel()
-
-  const trackItemList = getCurrentTrackItemList(trackStore.trackList, store.playStartFrame, isOfCanPlayType)
-  trackItemList.forEach((item) => {
-    item?.pause()
-  })
+  playTimer?.cancel()
 }
 function startPlay() {
-  if (props.disable)
-    return
+  store.play()
+  store.isPause = false
+  // if (props.disable)
+  //   return
   if (store.playStartFrame >= trackStore.frameCount) {
     store.playStartFrame = 0
   }
-  store.isPause = false
-  playTimer.value?.cancel()
-  playTimer.value = preciseInterval(() => {
+  // store.isPause = false
+  playTimer?.cancel()
+  playTimer = preciseInterval(() => {
     store.playStartFrame++
     if (store.playStartFrame === trackStore.frameCount) {
       pauseVideo()
     }
   }, timeStamp)
 }
-// 在一些操作时，需要暂停播放
-watch(() => store.isPause, () => {
-  if (store.isPause) {
-    pauseVideo()
-  }
-})
-watch(() => store.playStartFrame, () => {
-  if (!store.isPause) {
-    // 播放声音，查询当前帧的数据
-    const trackItemList = getCurrentTrackItemList(trackStore.trackList, store.playStartFrame, isOfCanPlayType)
-    trackItemList.forEach((item) => {
-      item?.play(store.playStartFrame)
-    })
-  }
-})
 </script>
 
 <template>
